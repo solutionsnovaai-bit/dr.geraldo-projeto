@@ -15,10 +15,11 @@ export default function Hero({ pronto }: { pronto: boolean }) {
         };
 
   return (
-    <header className="relative flex min-h-[100svh] flex-col items-center justify-end overflow-hidden px-6 pb-16 pt-10 text-center sm:pb-20">
-      {/* A arte da marca sangra do topo e se dissolve no preto */}
+    <header className="relative flex min-h-[100svh] flex-col items-center justify-end overflow-hidden px-6 pb-16 pt-10 text-center sm:flex-row sm:items-center sm:justify-start sm:px-12 sm:pb-0 sm:pt-0 sm:text-left lg:px-20">
+      {/* Mobile: arte ocupa o topo e dissolve no preto, como antes.
+          Desktop: arte vira o fundo inteiro do header, ancorada à direita. */}
       <motion.div
-        className="pointer-events-none absolute inset-x-0 top-0 h-[58svh] select-none sm:h-[64svh]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[58svh] select-none sm:inset-0 sm:h-full"
         initial={semMovimento ? false : { opacity: 0, scale: 1.06 }}
         animate={pronto ? { opacity: 1, scale: 1 } : {}}
         transition={{ duration: 2.2, ease }}
@@ -28,14 +29,17 @@ export default function Hero({ pronto }: { pronto: boolean }) {
           <img
             src="/hero-desktop.webp"
             alt={`${site.cliente.tratamento} — ${site.cliente.escritorio}`}
-            className="fusao-hero h-full w-full object-cover object-center"
+            className="h-full w-full object-cover object-center sm:object-right"
             fetchPriority="high"
           />
         </picture>
+        {/* Só no desktop: gradiente pra garantir contraste do texto sobre a metade esquerda da arte */}
+        <div className="absolute inset-0 hidden bg-gradient-to-r from-black via-black/55 to-transparent sm:block" />
       </motion.div>
 
-      {/* O texto vive abaixo da arte, onde o fundo já é preto puro */}
-      <div className="relative w-full">
+      {/* Mobile: texto embaixo, centralizado, em área já preta.
+          Desktop: texto sobreposto à esquerda, alinhado, sobre o espaço vazio da arte. */}
+      <div className="relative z-10 w-full sm:max-w-[38ch]">
         <motion.p
           className="mb-6 font-display text-[0.6rem] uppercase tracking-[0.44em] text-neutro"
           {...anima(0.35)}
@@ -44,7 +48,7 @@ export default function Hero({ pronto }: { pronto: boolean }) {
         </motion.p>
 
         <motion.h1
-          className="mx-auto mb-7 max-w-[17ch] font-display text-[clamp(1.6rem,4.4vw,3rem)] font-normal leading-[1.24]"
+          className="mx-auto mb-7 max-w-[17ch] font-display text-[clamp(1.6rem,4.4vw,3rem)] font-normal leading-[1.24] sm:mx-0 sm:max-w-none"
           {...anima(0.5)}
         >
           Atendimento jurídico que{" "}
@@ -61,7 +65,7 @@ export default function Hero({ pronto }: { pronto: boolean }) {
         </motion.p>
 
         <motion.div
-          className="mx-auto mt-11 h-[74px] w-px origin-top"
+          className="mx-auto mt-11 h-[74px] w-px origin-top sm:mx-0"
           style={{ background: "linear-gradient(180deg, var(--ouro), transparent)" }}
           initial={semMovimento ? false : { scaleY: 0, opacity: 0 }}
           animate={pronto ? { scaleY: 1, opacity: 1 } : {}}
