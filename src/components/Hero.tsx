@@ -37,9 +37,35 @@ export default function Hero({ pronto }: { pronto: boolean }) {
         <div className="absolute inset-0 hidden bg-gradient-to-r from-black via-black/55 to-transparent sm:block" />
       </motion.div>
 
+      {/* Partículas douradas cobrindo o header inteiro — unifica a textura que já existe
+          na imagem com a área de texto, sem depender de nenhum asset novo. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-70"
+        style={{
+          backgroundImage: [
+            "radial-gradient(1px 1px at 8% 22%, rgba(214,178,90,0.55) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 18% 63%, rgba(214,178,90,0.35) 50%, transparent 51%)",
+            "radial-gradient(1.5px 1.5px at 32% 12%, rgba(214,178,90,0.4) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 46% 78%, rgba(214,178,90,0.3) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 61% 34%, rgba(214,178,90,0.45) 50%, transparent 51%)",
+            "radial-gradient(1.5px 1.5px at 74% 58%, rgba(214,178,90,0.3) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 88% 15%, rgba(214,178,90,0.4) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 5% 88%, rgba(214,178,90,0.25) 50%, transparent 51%)",
+            "radial-gradient(1.5px 1.5px at 25% 45%, rgba(214,178,90,0.35) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 55% 92%, rgba(214,178,90,0.3) 50%, transparent 51%)",
+            "radial-gradient(1px 1px at 95% 70%, rgba(214,178,90,0.35) 50%, transparent 51%)",
+            "radial-gradient(1.5px 1.5px at 40% 30%, rgba(214,178,90,0.4) 50%, transparent 51%)",
+          ].join(", "),
+          backgroundRepeat: "repeat",
+          backgroundSize: "480px 480px",
+        }}
+      />
+
       {/* Mobile: texto embaixo, centralizado, em área já preta.
-          Desktop: texto sobreposto à esquerda, alinhado, sobre o espaço vazio da arte. */}
-      <div className="relative z-10 w-full sm:max-w-[38ch]">
+          Desktop: texto sobreposto à esquerda, alinhado, vertical e compacto o suficiente
+          pra realmente centralizar no meio do header. */}
+      <div className="relative z-10 w-full sm:max-w-[42ch]">
         <motion.p
           className="mb-6 font-display text-[0.6rem] uppercase tracking-[0.44em] text-neutro"
           {...anima(0.35)}
@@ -48,10 +74,10 @@ export default function Hero({ pronto }: { pronto: boolean }) {
         </motion.p>
 
         <motion.h1
-          className="mx-auto mb-7 max-w-[17ch] font-display text-[clamp(1.6rem,4.4vw,3rem)] font-normal leading-[1.24] sm:mx-0 sm:max-w-none"
+          className="mx-auto mb-5 max-w-[17ch] font-display text-[clamp(1.6rem,4.4vw,3rem)] font-normal leading-[1.24] sm:mx-0 sm:max-w-none"
           {...anima(0.5)}
         >
-          Atendimento jurídico que{" "}
+          Captação de leads que{" "}
           <span className="inline-block bg-gradient-to-br from-ouro-profundo via-ouro-claro to-ouro bg-clip-text text-transparent">
             não dorme, não falta e não pede aumento
           </span>
@@ -65,7 +91,7 @@ export default function Hero({ pronto }: { pronto: boolean }) {
         </motion.p>
 
         <motion.div
-          className="mx-auto mt-11 h-[74px] w-px origin-top sm:mx-0"
+          className="mx-auto mt-8 h-[56px] w-px origin-top sm:mx-0"
           style={{ background: "linear-gradient(180deg, var(--ouro), transparent)" }}
           initial={semMovimento ? false : { scaleY: 0, opacity: 0 }}
           animate={pronto ? { scaleY: 1, opacity: 1 } : {}}
